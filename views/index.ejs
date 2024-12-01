@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta
+        name='viewport'
+        content='width=device-width, initial-scale=1.0'
+    >
+    <script src='https://cdn.tailwindcss.com'></script>
+</head>
+<body>
+    <div class="flex flex-col m-[15vw]"></div>
+    <div class="flex-1 overflow-y-auto p-4">
+        <!-- Messages will be displayed here -->
+        <div
+            id="messages"
+            class="space-y-4"
+        ></div>
+    </div>
+    <div class="p-4 border-t border-gray-200">
+
+        <input
+            id="message-input"
+            type="text"
+            placeholder="Type your message..."
+            class="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+        <button class="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600">Send</button>
+    </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        document.querySelector('button')
+            .addEventListener('click', () => {
+                const msg = document.querySelector('input').value
+                socket.emit('chacha', msg)
+            })
+        socket.on('chachi', (msg) => {
+            console.log(msg)
+        })
+    </script>
+</body>
+</html>
